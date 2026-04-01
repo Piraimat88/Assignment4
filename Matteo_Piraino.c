@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 // Number of vertices in the graph
-#define V 9
+#define V 7
 
 // A utility function to find the vertex with minimum distance value, from
 // the set of vertices not yet included in shortest path tree
@@ -70,20 +70,24 @@ void dijkstra(int graph[V][V], int src)
 	printSolution(dist);
 }
 
+void printSetS() {
+	
+}
+
 
 // driver program to test above function
 int main()
 {
-	/* The example of a graph */
-	int graph[V][V] = { { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
-						{ 4, 0, 8, 0, 0, 0, 0, 11, 0 },
-						{ 0, 8, 0, 7, 0, 4, 0, 0, 2 },
-						{ 0, 0, 7, 0, 9, 14, 0, 0, 0 },
-						{ 0, 0, 0, 9, 0, 10, 0, 0, 0 },
-						{ 0, 0, 4, 14, 10, 0, 2, 0, 0 },
-						{ 0, 0, 0, 0, 0, 2, 0, 1, 6 },
-						{ 8, 11, 0, 0, 0, 0, 1, 0, 7 },
-						{ 0, 0, 2, 0, 0, 0, 6, 7, 0 } };
+
+	//                       A  B  C  D  E  F  G
+	int graph[V][V] = { { 0, 1, 3, 0, 0, 10, 0},//A
+						{ 1, 0, 1, 7, 5, 0, 2},//B
+						{ 3, 1, 0, 9, 3, 0, 0},//C
+						{ 0, 7, 9, 0, 2, 1, 12},//D
+						{ 0, 5, 3, 2, 0, 2, 0},//E
+						{ 10, 0, 0, 1, 2, 0, 0},//F
+                        { 0, 2, 0, 12, 0, 0, 0},//G
+						 };
 
 	dijkstra(graph, 0);
 
