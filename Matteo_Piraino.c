@@ -22,6 +22,16 @@ int minDistance(int dist[], bool sptSet[])
 	return min_index;
 }
 
+void printSetS(bool sptSet[]) {
+	printf("Set S = { ");
+	for (int i = 0; i < V; i++) {
+		if (sptSet[i]) {
+			printf("%d ", i);
+		}
+	}
+	puts("}");
+}
+
 // A utility function to print the constructed distance array
 void printSolution(int dist[])
 {
@@ -34,62 +44,49 @@ void printSolution(int dist[])
 // for a graph represented using adjacency matrix representation
 void dijkstra(int graph[V][V], int src)
 {
-	int dist[V]; // The output array:  dist[i] will hold the shortest distance from src to i
+	int dist[V];
+	bool sptSet[V];
 
-	bool sptSet[V]; // sptSet[i] will be true if vertex i is included in shortest
-	// path tree or shortest distance from src to i is finalized
-
-	// Initialize all distances as INFINITE and stpSet[] as false
 	for (int i = 0; i < V; i++)
 		dist[i] = INT_MAX, sptSet[i] = false;
 
-	// Distance of source vertex from itself is always 0
 	dist[src] = 0;
 
-	// Find shortest path for all vertices
 	for (int count = 0; count < V - 1; count++) {
-		// Pick the minimum distance vertex from the set of vertices not
-		// yet processed. u is always equal to src in the first iteration.
 		int u = minDistance(dist, sptSet);
-
-		// Mark the picked vertex as processed
 		sptSet[u] = true;
 
-		// Update dist value of the adjacent vertices of the picked vertex.
 		for (int v = 0; v < V; v++)
-
-			// Update dist[v] only if is not in sptSet, there is an edge from
-			// u to v, and total weight of path from src to v through u is
-			// smaller than current value of dist[v]
 			if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX
 				&& dist[u] + graph[u][v] < dist[v])
 				dist[v] = dist[u] + graph[u][v];
 	}
 
-	// print the constructed distance array
 	printSolution(dist);
+	printSetS(sptSet);
 }
 
-void printSetS() {
-	
+//newLine function is simply used to space lines in terminal
+void newLine(int lineSpacing) {
+	for (int i = 0; i <= lineSpacing; i++) {
+		puts("");
+	}
 }
-
 
 // driver program to test above function
 int main()
 {
-
-	//                       A  B  C  D  E  F  G
-	int graph[V][V] = { { 0, 1, 3, 0, 0, 10, 0},//A
-						{ 1, 0, 1, 7, 5, 0, 2},//B
-						{ 3, 1, 0, 9, 3, 0, 0},//C
-						{ 0, 7, 9, 0, 2, 1, 12},//D
-						{ 0, 5, 3, 2, 0, 2, 0},//E
-						{ 10, 0, 0, 1, 2, 0, 0},//F
-                        { 0, 2, 0, 12, 0, 0, 0},//G
+	int graph[V][V] = { { 0, 1, 3, 0, 0, 10, 0},
+						{ 1, 0, 1, 7, 5, 0, 2},
+						{ 3, 1, 0, 9, 3, 0, 0},
+						{ 0, 7, 9, 0, 2, 1, 12},
+						{ 0, 5, 3, 2, 0, 2, 0},
+						{ 10, 0, 0, 1, 2, 0, 0},
+						{ 0, 2, 0, 12, 0, 0, 0},
 						 };
 
 	dijkstra(graph, 0);
+	newLine(3);
 
 	return 0;
 }
