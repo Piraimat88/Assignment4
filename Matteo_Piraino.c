@@ -1,10 +1,10 @@
 // A C program for Dijkstra's single source shortest path algorithm.
 // The program is for adjacency matrix representation of the graph
 
+
 #include <limits.h>
 #include <stdio.h>
 #include <stdbool.h>
-
 // Number of vertices in the graph
 #define V 7
 
@@ -13,7 +13,7 @@
 int minDistance(int dist[], bool sptSet[])
 {
 	// Initialize min value
-	int min = INT_MAX, min_index;
+	int min = INT_MAX, min_index = -1;
 
 	for (int v = 0; v < V; v++)
 		if (sptSet[v] == false && dist[v] <= min)
@@ -22,6 +22,7 @@ int minDistance(int dist[], bool sptSet[])
 	return min_index;
 }
 
+//Print Set S function
 void printSetS(bool sptSet[]) {
 	printf("Set S = { ");
 	for (int i = 0; i < V; i++) {
@@ -52,8 +53,11 @@ void dijkstra(int graph[V][V], int src)
 
 	dist[src] = 0;
 
-	for (int count = 0; count < V - 1; count++) {
+	for (int count = 0; count < V; count++) {
 		int u = minDistance(dist, sptSet);
+
+		if (u == -1) break;
+
 		sptSet[u] = true;
 
 		for (int v = 0; v < V; v++)
